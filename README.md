@@ -83,7 +83,7 @@ cd path/to/your_flutter_project
 Run the generator:
 
 ```bash
-fluttergen-provider
+flutter_gen_provider
 ```
 
 The generator will create the predefined directories and starter files inside `lib/`.
@@ -126,7 +126,7 @@ dart pub get
 Run the generator locally:
 
 ```bash
-dart run bin/main.dart
+dart run bin/flutter_gen_provider.dart
 ```
 
 Adjust the entry-point path if your repository uses a different filename.
