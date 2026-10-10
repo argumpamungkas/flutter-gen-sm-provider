@@ -191,7 +191,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routing.splashPage,
+      initialRoute: Routes.splashPage,
       routes: AppRouter.routingApp,
     );
   }
@@ -215,5 +215,39 @@ class MyApp extends StatelessWidget {
     print('CREATE ${file.path}');
   }
 
-  print('\\nFlutter structure generated successfully!');
+  // INSTALLED PACKAGES
+  installPackages();
+
+  print('\nFlutter structure generated successfully!');
+}
+
+void installPackages() {
+  final package = [
+    [
+      'provider',
+      'flutter_screenutil',
+      'http',
+      'shared_preferences',
+      'get_it',
+    ]
+  ];
+
+  final result = Process.runSync(
+    'flutter pub add',
+    package.expand((e) => e).toList(),
+    runInShell: true,
+  );
+
+  if (result.stdout.toString().isNotEmpty) {
+    print(result.stdout);
+  }
+
+  if (result.exitCode != 0) {
+    stderr.writeln(result.stderr);
+    stderr.writeln('Gagal menambahkan package.');
+    exitCode = 1;
+    return;
+  }
+
+  print('Packages installed successfully!');
 }
