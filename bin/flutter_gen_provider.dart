@@ -222,6 +222,10 @@ class MyApp extends StatelessWidget {
 }
 
 void installPackages() {
+  print('\nInstalling packages...');
+  print(
+      '\nProvider, Flutter ScreenUtil, HTTP, Shared Preferences, and GetIt packages are being installed...');
+
   final package = [
     [
       'pub',
