@@ -43,27 +43,28 @@ class ApiConstants {
 class AppStyles {
 }
 ''',
-    'config/routing.dart': '''
-class Routing {
+// ROUTER
+    'config/router/routes.dart': '''
+class Routes {
   static const splashPage = '/splash_page';
   static const loginPage = '/login_page';
   static const homePage = '/home_page';
 }
 ''',
-    'config/router.dart': '''
+    'config/router/app_router.dart': '''
 import 'package:flutter/material.dart';
 
-import '../config/routing.dart';
+import '../config/router/routes.dart';
 import '../views/splash/splash_page.dart';
 import '../views/auth/login_page.dart';
 import '../views/home/home_page.dart';
 
-class Router {
+class AppRouter {
   static Map<String, Widget Function(BuildContext)> routingApp = {
     Routing.splashPage: (context) => const SplashPage(),
     Routing.loginPage: (context) => const LoginPage(),
     Routing.homePage: (context) => const HomePage(),
-  }
+  };
 }
 ''',
     'views/splash/splash_page.dart': '''
@@ -176,8 +177,8 @@ class CustomDialog {
   const mainTemplate = '''
 import 'package:flutter/material.dart';
 
-import 'config/routing.dart';
-import 'config/router.dart';
+import 'config/router/routes.dart';
+import 'config/router/app_router.dart';
 
 void main() {
   runApp(const MyApp());
