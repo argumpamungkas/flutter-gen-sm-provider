@@ -1,28 +1,33 @@
-# Flutter Generator State Management Provider by Argumelar Pamungkas
+# Flutter Generator — Provider Architecture by Argumelar Pamungkas
 
-A reusable Dart CLI tool to automatically generate a standardized folder structure and boilerplate files for Flutter projects.
+A reusable Dart CLI tool that generates a predefined Flutter project structure, starter pages, routing configuration, utility classes, and common dependencies.
+
+The goal is to reduce repetitive setup when starting a new Flutter project and maintain a consistent project structure across applications.
 
 ## Features
 
-- Automatically generate common Flutter project directories.
+- Generate a standardized Flutter directory structure.
 - Create starter pages for Splash, Login, and Home.
-- Generate routing configuration.
-- Create reusable utility files, including custom AppBar and dialog helpers.
-- Skip existing files to prevent accidental overwrites.
-- Designed to be reused across multiple Flutter projects.
+- Generate centralized route names and an `AppRouter` configuration.
+- Create reusable utility classes for AppBar and loading dialogs.
+- Generate configuration files for constants, API constants, and app styles.
+- Automatically overwrite generated files, including `lib/main.dart`.
+- Automatically install commonly used Flutter packages.
+- Validate that the command is executed from a directory containing `pubspec.yaml`.
 
-## Generated Structure
+## Generated Project Structure
 
-The generator creates the following structure inside the `lib/` directory:
+The generator creates the following structure inside `lib/`:
 
 ```text
 lib/
 ├── config/
 │   ├── constants.dart
 │   ├── api_constants.dart
-│   ├── styles.dart
-│   ├── routing.dart
-│   └── router.dart
+│   ├── app_styles.dart
+│   └── router/
+│       ├── routes.dart
+│       └── app_router.dart
 ├── data/
 │   ├── network/
 │   ├── models/
@@ -32,16 +37,17 @@ lib/
 ├── utils/
 │   ├── app_bar_custom.dart
 │   └── dialog_helpers.dart
-└── views/
-    ├── splash/
-    │   └── splash_page.dart
-    ├── login/
-    │   └── login_page.dart
-    └── home/
-        └── home_page.dart
+├── views/
+│   ├── splash/
+│   │   └── splash_page.dart
+│   ├── auth/
+│   │   └── login_page.dart
+│   └── home/
+│       └── home_page.dart
+└── main.dart
 ```
 
-> **Note:** The generator creates the directory structure and starter files. Some directories, such as `data/network/` and `providers/`, may initially be empty.
+Some directories are created empty and are intended for future implementation.
 
 ## Requirements
 
@@ -49,32 +55,37 @@ lib/
 - Dart SDK
 - Git
 
+Make sure Flutter and Dart are available from your terminal:
+
+```bash
+flutter --version
+dart --version
+```
+
 ## Installation
 
-Activate the generator directly from GitHub:
+Activate the generator directly from its GitHub repository:
 
 ```bash
 dart pub global activate --source git https://github.com/argumpamungkas/flutter-gen-sm-provider.git
 ```
 
-Make sure the package defines its executable in `pubspec.yaml`:
+Ensure your package's `pubspec.yaml` defines a valid Dart package name and executable:
 
 ```yaml
+name: flutter_gen_sm_provider
+
 executables:
   flutter_gen_provider: flutter_gen_provider
 ```
 
-The package name in `pubspec.yaml` must be a valid Dart identifier. For example:
-
-```yaml
-name: flutter_gen_sm_provider
-```
+The package name uses underscores because Dart package names must follow Dart naming rules. The executable command can use hyphens.
 
 Ensure the Dart Pub cache executable directory is included in your system `PATH`.
 
 ## Usage
 
-Navigate to the root directory of your Flutter project:
+Navigate to the root directory of the Flutter application you want to configure:
 
 ```bash
 cd path/to/your_flutter_project
@@ -86,27 +97,72 @@ Run the generator:
 flutter_gen_provider
 ```
 
-The generator will create the predefined directories and starter files inside `lib/`.
+The generator will:
 
-Example output:
+1. Verify that `pubspec.yaml` exists.
+2. Create the required directories under `lib/`.
+3. Generate configuration files, routing, pages, and utilities.
+4. Replace the contents of `lib/main.dart` with the generated template.
+5. Replace the contents of other generated files.
+6. Install the configured dependencies.
+7. Display the execution result in the terminal.
 
-```text
-CREATE lib/config
-CREATE lib/data/network
-CREATE lib/views/splash/splash_page.dart
+## Automatically Installed Packages
 
-Flutter structure generated successfully!
+The generator installs the following dependencies:
+
+| Package              | Purpose                                   |
+| -------------------- | ----------------------------------------- |
+| `provider`           | State management                          |
+| `flutter_screenutil` | Responsive sizing and layout              |
+| `http`               | HTTP requests and API communication       |
+| `shared_preferences` | Simple local key-value storage            |
+| `get_it`             | Dependency injection and service location |
+
+The dependencies are added using:
+
+```bash
+flutter pub add provider flutter_screenutil http shared_preferences get_it
 ```
 
-Actual output depends on the directories and files defined in the generator.
+## Important: Existing Files Are Overwritten
 
-## Safety
+This generator currently overwrites the contents of these files whenever it runs:
 
-The generator checks for `pubspec.yaml` before proceeding.
+- `lib/main.dart`
+- All files listed in the generator's file template map.
 
-Existing files are skipped rather than overwritten. This allows the generator to be run multiple times without replacing existing file contents.
+**Back up your existing code before running the generator.** Existing implementations, imports, routes, and application configuration in those files will be replaced by the generated templates.
 
-**Important:** The current implementation checks for `pubspec.yaml`, which is also used by Dart packages. Make sure to run the generator from the root of a Flutter application.
+Files not listed in the generator's template map are not automatically overwritten by the file-generation loop.
+
+## Routing
+
+The generated application uses named routes.
+
+Route names are defined in `lib/config/router/routes.dart`:
+
+```dart
+class Routes {
+  static const splashPage = '/splash_page';
+  static const loginPage = '/login_page';
+  static const homePage = '/home_page';
+}
+```
+
+The route mapping is defined in `lib/config/router/app_router.dart`:
+
+```dart
+class AppRouter {
+  static Map<String, Widget Function(BuildContext)> routingApp = {
+    Routes.splashPage: (context) => const SplashPage(),
+    Routes.loginPage: (context) => const LoginPage(),
+    Routes.homePage: (context) => const HomePage(),
+  };
+}
+```
+
+To add a new page, create the page widget, define its route name, and register it in `AppRouter.routingApp`.
 
 ## Development
 
@@ -117,43 +173,37 @@ git clone https://github.com/argumpamungkas/flutter-gen-sm-provider.git
 cd flutter-gen-sm-provider
 ```
 
-Get dependencies:
+Install dependencies:
 
 ```bash
 dart pub get
 ```
 
-Run the generator locally:
+Run the generator directly using its Dart entry point:
 
 ```bash
 dart run bin/flutter_gen_provider.dart
 ```
 
-Adjust the entry-point path if your repository uses a different filename.
+Update the command above if your entry-point filename or directory differs.
 
-## Updating
+## Updating the Generator
 
-To update the globally activated generator after publishing changes to GitHub:
+After publishing changes to GitHub, update the globally activated version:
 
 ```bash
 dart pub global deactivate flutter_gen_sm_provider
-dart pub global activate --source git https://github.com/argumpamungkas/flutter-gen-sm-provider.git
+dart pub global activate --source git https://github.com/USERNAME/flutter-gen-sm-provider.git
 ```
-
-Replace the package name and repository URL with your actual configuration.
-
-## Roadmap
-
-- [ ] Automatically update `lib/main.dart`.
-- [ ] Support configurable feature names.
-- [ ] Generate Provider, Model, and Repository templates.
-- [ ] Add customizable templates.
-- [ ] Add support for different architecture patterns.
 
 ## License
 
 Copyright (c) 2026 Argumelar Pamungkas. All rights reserved.
 
-This project is proprietary software. No license is granted for reuse, modification, redistribution, or commercial use without prior written permission from the copyright holder.pil
+This project is proprietary software. No license is granted for reuse, modification, redistribution, or commercial use without prior written permission from the copyright holder.
 
-See the [LICENSE](LICENSE) file for details.
+See the `LICENSE` file for details.
+
+---
+
+**Flutter Generator** — less repetitive setup, more time building features.

@@ -227,20 +227,18 @@ void installPackages() {
       '\nProvider, Flutter ScreenUtil, HTTP, Shared Preferences, and GetIt packages are being installed...\n');
 
   final package = [
-    [
-      'pub',
-      'add',
-      'provider',
-      'flutter_screenutil',
-      'http',
-      'shared_preferences',
-      'get_it',
-    ]
+    'pub',
+    'add',
+    'provider',
+    'flutter_screenutil',
+    'http',
+    'shared_preferences',
+    'get_it',
   ];
 
   final result = Process.runSync(
     'flutter',
-    package.expand((e) => e).toList(),
+    package,
     runInShell: true,
   );
 
