@@ -1,4 +1,4 @@
-# Flutter Generator — Provider Architecture by Argumelar Pamungkas
+# Flutter Generator — Provider Architecture by Argumelar Pamungkas (1.0.0)
 
 A reusable Dart CLI tool that generates a predefined Flutter project structure, starter pages, routing configuration, utility classes, and common dependencies.
 

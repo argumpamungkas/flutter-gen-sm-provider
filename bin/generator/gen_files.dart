@@ -26,7 +26,7 @@ class AppStyles {
         backgroundColor: Colors.white,
         surfaceTintColor: Colors.white,
         titleTextStyle: TextStyle(
-          color: const Color(PrimaryStyle.colorPrimary),
+          color: Colors.black,
           fontWeight: FontWeight.bold,
           fontSize: 20.sp,
         ),
