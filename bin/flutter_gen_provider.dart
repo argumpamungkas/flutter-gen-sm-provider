@@ -197,20 +197,17 @@ class MyApp extends StatelessWidget {
 }
 ''';
 
-  if (!mainFile.existsSync()) {
-    mainFile.writeAsStringSync(mainTemplate);
-    print('CREATE lib/main.dart');
-  } else {
-    print('SKIP lib/main.dart (sudah ada)');
-  }
+// replace existing main.dart content with the new template
+  mainFile.writeAsStringSync(mainTemplate);
 
   for (final entry in files.entries) {
     final file = File('${lib.path}/${entry.key}');
 
-    if (file.existsSync()) {
-      print('SKIP ${file.path} (sudah ada)');
-      continue;
-    }
+// the comment, because we want to overwrite the existing files, so we don't skip them
+    // if (file.existsSync()) {
+    //   print('SKIP ${file.path} (sudah ada)');
+    //   continue;
+    // }
 
     file.parent.createSync(recursive: true);
     file.writeAsStringSync(entry.value.trimLeft());
