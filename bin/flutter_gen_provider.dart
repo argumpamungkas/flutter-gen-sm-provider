@@ -16,9 +16,6 @@ void main() {
 
 // create directory
   final directories = [
-    'config/constants.dart',
-    'config/api_constants.dart',
-    'config/styles.dart',
     'data/network',
     'data/models',
     'data/repository',
@@ -34,6 +31,18 @@ void main() {
 
 // Membuat file
   final files = <String, String>{
+    'config/constants.dart': '''
+class Constants {
+}
+''',
+    'config/api_constants.dart': '''
+class ApiConstants {
+}
+''',
+    'config/app_styles.dart': '''
+class AppStyles {
+}
+''',
     'config/routing.dart': '''
 class Routing {
   static const splashPage = '/splash_page';
@@ -46,7 +55,7 @@ import 'package:flutter/material.dart';
 
 import '../config/routing.dart';
 import '../views/splash/splash_page.dart';
-import '../views/home/home_page.dart';
+import '../views/auth/login_page.dart';
 import '../views/home/home_page.dart';
 
 class Router {
@@ -95,9 +104,6 @@ class HomePage extends StatelessWidget {
 // APPBAR CUSTOM
     'utils/app_bar_custom.dart': '''
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../common/constant.dart';
 
 class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -128,6 +134,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
 // DIALOG HELPERS
     'utils/dialog_helpers.dart': '''
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDialog {
   static Future<void> showLoadingDialog(BuildContext context, {String message = "Loading..."}) {
