@@ -54,16 +54,16 @@ class Routes {
     'config/router/app_router.dart': '''
 import 'package:flutter/material.dart';
 
-import '../config/router/routes.dart';
-import '../views/splash/splash_page.dart';
-import '../views/auth/login_page.dart';
-import '../views/home/home_page.dart';
+import '../../config/router/routes.dart';
+import '../../views/splash/splash_page.dart';
+import '../../views/auth/login_page.dart';
+import '../../views/home/home_page.dart';
 
 class AppRouter {
   static Map<String, Widget Function(BuildContext)> routingApp = {
-    Routing.splashPage: (context) => const SplashPage(),
-    Routing.loginPage: (context) => const LoginPage(),
-    Routing.homePage: (context) => const HomePage(),
+    Routes.splashPage: (context) => const SplashPage(),
+    Routes.loginPage: (context) => const LoginPage(),
+    Routes.homePage: (context) => const HomePage(),
   };
 }
 ''',
@@ -224,7 +224,7 @@ class MyApp extends StatelessWidget {
 void installPackages() {
   print('\nInstalling packages...');
   print(
-      '\nProvider, Flutter ScreenUtil, HTTP, Shared Preferences, and GetIt packages are being installed...');
+      '\nProvider, Flutter ScreenUtil, HTTP, Shared Preferences, and GetIt packages are being installed...\n');
 
   final package = [
     [
