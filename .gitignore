@@ -1,0 +1,49 @@
+# Dart / Flutter
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-plugins/
+.metadata
+
+# Dart generated files
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Operating system
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Test coverage
+coverage/
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Local package configuration
+pubspec_overrides.yaml
+
+# Local scripts and tooling
+.tool-versions.local

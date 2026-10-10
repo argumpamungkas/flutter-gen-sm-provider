@@ -1,0 +1,10 @@
+name: flutter_gen_sm_provider
+description: Flutter Generator for State Management Provider by Argumelar Pamungkas
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+executables:
+  fluttergen-provider: fluttergen_provider
