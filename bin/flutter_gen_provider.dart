@@ -1,6 +1,11 @@
 import 'dart:io';
+import 'generator/gen_packages.dart';
+import 'generator/gen_files.dart';
 
 void main() {
+  final packages = GenPackages();
+  final genFiles = GenFiles();
+
   final root = Directory.current;
 
   if (!File('${root.path}/pubspec.yaml').existsSync()) {
@@ -29,174 +34,11 @@ void main() {
     print('CREATE ${directory.path}');
   }
 
-// Membuat file
-  final files = <String, String>{
-    'config/constants.dart': '''
-class Constants {
-}
-''',
-    'config/api_constants.dart': '''
-class ApiConstants {
-}
-''',
-    'config/app_styles.dart': '''
-class AppStyles {
-}
-''',
-// ROUTER
-    'config/router/routes.dart': '''
-class Routes {
-  static const splashPage = '/splash_page';
-  static const loginPage = '/login_page';
-  static const homePage = '/home_page';
-}
-''',
-    'config/router/app_router.dart': '''
-import 'package:flutter/material.dart';
-
-import '../../config/router/routes.dart';
-import '../../views/splash/splash_page.dart';
-import '../../views/auth/login_page.dart';
-import '../../views/home/home_page.dart';
-
-class AppRouter {
-  static Map<String, Widget Function(BuildContext)> routingApp = {
-    Routes.splashPage: (context) => const SplashPage(),
-    Routes.loginPage: (context) => const LoginPage(),
-    Routes.homePage: (context) => const HomePage(),
-  };
-}
-''',
-    'views/splash/splash_page.dart': '''
-import 'package:flutter/material.dart';
-
-class SplashPage extends StatelessWidget {
-  const SplashPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
-''',
-    'views/auth/login_page.dart': '''
-import 'package:flutter/material.dart';
-
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
-''',
-    'views/home/home_page.dart': '''
-import 'package:flutter/material.dart';
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
-''',
-// APPBAR CUSTOM
-    'utils/app_bar_custom.dart': '''
-import 'package:flutter/material.dart';
-
-class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-
-  const AppBarCustom({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: const Icon(Icons.arrow_back_sharp),
-      ),
-      title: Text(title),
-      centerTitle: false,
-      actions: [
-      ],
-      elevation: 0,
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-}
-''',
-// DIALOG HELPERS
-    'utils/dialog_helpers.dart': '''
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-class CustomDialog {
-  static Future<void> showLoadingDialog(BuildContext context, {String message = "Loading..."}) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return WillPopScope(
-          onWillPop: () async => false,
-          child: AlertDialog(
-            // backgroundColor: Colors.white,
-            // surfaceTintColor: Colors.white,
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                SizedBox(height: 10.sp),
-                Text(
-                  message,
-                  style: const TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-''',
-  };
+  final files = genFiles.generate();
 
   // UPDATE main.dart
   final mainFile = File('${lib.path}/main.dart');
-
-  const mainTemplate = '''
-import 'package:flutter/material.dart';
-
-import 'config/router/routes.dart';
-import 'config/router/app_router.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: Routes.splashPage,
-      routes: AppRouter.routingApp,
-    );
-  }
-}
-''';
+  final mainTemplate = genFiles.updateMainTemplate();
 
 // replace existing main.dart content with the new template
   mainFile.writeAsStringSync(mainTemplate);
@@ -216,42 +58,7 @@ class MyApp extends StatelessWidget {
   }
 
   // INSTALLED PACKAGES
-  installPackages();
+  packages.installPackages();
 
   print('\nFlutter structure generated successfully!');
-}
-
-void installPackages() {
-  print('\nInstalling packages...');
-  print(
-      '\nProvider, Flutter ScreenUtil, HTTP, Shared Preferences, and GetIt packages are being installed...\n');
-
-  final package = [
-    'pub',
-    'add',
-    'provider',
-    'flutter_screenutil',
-    'http',
-    'shared_preferences',
-    'get_it',
-  ];
-
-  final result = Process.runSync(
-    'flutter',
-    package,
-    runInShell: true,
-  );
-
-  if (result.stdout.toString().isNotEmpty) {
-    print(result.stdout);
-  }
-
-  if (result.exitCode != 0) {
-    stderr.writeln(result.stderr);
-    stderr.writeln('Gagal menambahkan package.');
-    exitCode = 1;
-    return;
-  }
-
-  print('Packages installed successfully!');
 }
