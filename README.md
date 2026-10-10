@@ -61,7 +61,7 @@ Make sure the package defines its executable in `pubspec.yaml`:
 
 ```yaml
 executables:
-  fluttergen-provider: fluttergen_provider
+  flutter_gen_provider: flutter_gen_provider
 ```
 
 The package name in `pubspec.yaml` must be a valid Dart identifier. For example:
