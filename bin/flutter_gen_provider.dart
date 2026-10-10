@@ -78,7 +78,7 @@ class SplashPage extends StatelessWidget {
   }
 }
 ''',
-    'views/login/login_page.dart': '''
+    'views/auth/login_page.dart': '''
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -170,20 +170,7 @@ class CustomDialog {
 ''',
   };
 
-  for (final entry in files.entries) {
-    final file = File('${lib.path}/${entry.key}');
-
-    if (file.existsSync()) {
-      print('SKIP ${file.path} (sudah ada)');
-      continue;
-    }
-
-    file.parent.createSync(recursive: true);
-    file.writeAsStringSync(entry.value.trimLeft());
-    print('CREATE ${file.path}');
-  }
-
-// UPDATE main.dart
+  // UPDATE main.dart
   final mainFile = File('${lib.path}/main.dart');
 
   const mainTemplate = '''
@@ -215,6 +202,19 @@ class MyApp extends StatelessWidget {
     print('CREATE lib/main.dart');
   } else {
     print('SKIP lib/main.dart (sudah ada)');
+  }
+
+  for (final entry in files.entries) {
+    final file = File('${lib.path}/${entry.key}');
+
+    if (file.existsSync()) {
+      print('SKIP ${file.path} (sudah ada)');
+      continue;
+    }
+
+    file.parent.createSync(recursive: true);
+    file.writeAsStringSync(entry.value.trimLeft());
+    print('CREATE ${file.path}');
   }
 
   print('\\nFlutter structure generated successfully!');
