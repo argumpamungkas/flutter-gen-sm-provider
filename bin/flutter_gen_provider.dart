@@ -224,6 +224,8 @@ class MyApp extends StatelessWidget {
 void installPackages() {
   final package = [
     [
+      'pub',
+      'add',
       'provider',
       'flutter_screenutil',
       'http',
@@ -233,7 +235,7 @@ void installPackages() {
   ];
 
   final result = Process.runSync(
-    'flutter pub add',
+    'flutter',
     package.expand((e) => e).toList(),
     runInShell: true,
   );
