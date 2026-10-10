@@ -1,4 +1,4 @@
-# Flutter Generator by Argumelar Pamungkas
+# Flutter Generator State Management Provider by Argumelar Pamungkas
 
 A reusable Dart CLI tool to automatically generate a standardized folder structure and boilerplate files for Flutter projects.
 
@@ -54,10 +54,8 @@ lib/
 Activate the generator directly from GitHub:
 
 ```bash
-dart pub global activate --source git https://github.com/USERNAME/flutter-gen-sm-provider.git
+dart pub global activate --source git https://github.com/argumpamungkas/flutter-gen-sm-provider.git
 ```
-
-Replace `USERNAME` with your GitHub username.
 
 Make sure the package defines its executable in `pubspec.yaml`:
 
@@ -128,7 +126,7 @@ dart pub get
 Run the generator locally:
 
 ```bash
-dart run bin/fluttergen_provider.dart
+dart run bin/main.dart
 ```
 
 Adjust the entry-point path if your repository uses a different filename.
