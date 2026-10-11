@@ -48,25 +48,25 @@ class AppStyles {
           fontSize: 10.sp,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           borderSide: BorderSide(
             color: Colors.grey.shade200,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           borderSide: BorderSide(
             color: Colors.grey.shade200,
           ),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           borderSide: BorderSide(
             color: Colors.grey.shade200,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           borderSide: BorderSide(
             color: Colors.grey.shade200,
           ),
@@ -87,25 +87,25 @@ class AppStyles {
             fontSize: 10.sp,
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             borderSide: BorderSide(
               color: Colors.grey.shade200,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             borderSide: BorderSide(
               color: Colors.grey.shade200,
             ),
           ),
           disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             borderSide: BorderSide(
               color: Colors.grey.shade200,
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16.r),
             borderSide: BorderSide(
               color: Colors.grey.shade200,
             ),
