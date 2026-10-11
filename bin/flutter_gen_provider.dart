@@ -26,8 +26,8 @@ void main() {
     final directory = Directory('${root.path}/$path');
     directory.createSync(recursive: true);
     print('CREATE ${directory.path}');
-    print('\nAssets directory successfully created!');
   }
+  print('\nAssets directory successfully created!');
 
 // root directory
   final lib = Directory('${root.path}/lib');
