@@ -202,6 +202,39 @@ class Injection {
   }
 }
 ''',
+//PROVIDER PREFERENCES
+      'providers/preferences_provider.dart': '''
+import 'package:flutter/material.dart';
+
+class PreferencesProvider extends ChangeNotifier {}
+''',
+// INJECTION
+      'providers/injection.dart': '''
+import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+final di = GetIt.instance;
+
+// digunakan unuk menginisiasi semua dependency injection yang digunakan di seluruh aplikasi
+// secara sederhana, ketika ingin digunakan, tidak perlu menginisiasi lagi, cukup memanggilnya dengan di.get<T>() atau di<T>()
+
+// contohnya :
+// final _prefs = di<SharedPreferences>();
+// ketika digunaknanya :
+// _prefs.setString(Constant.userDetail, jsonEncode(_userDetail?.toJson()));
+class Injection {
+  Future<void> initialize() async {
+    try {
+      final sharedPreferences = await SharedPreferences.getInstance();
+      di.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
+
+      // SERVICES
+
+      // REPOSITORY
+    } catch (e) {}
+  }
+}
+''',
 // APPBAR CUSTOM
       'utils/app_bar_custom.dart': '''
 import 'package:flutter/material.dart';
@@ -311,7 +344,7 @@ class MyApp extends StatelessWidget {
           // maka provider tersebut tidak perlu diinisiasi pada page tertentu
           // dan dapat digunakan di seluruh page dengan menggunakan fungsi
           // Consumer pada library provider
-          // ChangeNotifierProvider(create: (context) => PreferencesProvider()),
+          ChangeNotifierProvider(create: (context) => PreferencesProvider()),
         ],
         child: MaterialApp(
           // digunakan untuk direct navigation ke page tertentu dari luar context, misal dari service

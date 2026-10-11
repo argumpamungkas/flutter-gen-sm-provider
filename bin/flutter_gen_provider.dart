@@ -3,7 +3,7 @@ import 'generator/gen_packages.dart';
 import 'generator/gen_files.dart';
 
 void main() {
-  final version = '1.0.0';
+  final version = '1.0.1';
 
   final packages = GenPackages();
   final genFiles = GenFiles();
