@@ -317,6 +317,7 @@ import 'config/router/routes.dart';
 import 'config/router/app_router.dart';
 import 'config/app_styles.dart';
 import 'config/injection.dart';
+import 'providers/preferences_provider.dart';
 
 void main() async {
 
