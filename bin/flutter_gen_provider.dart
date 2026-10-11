@@ -3,6 +3,8 @@ import 'generator/gen_packages.dart';
 import 'generator/gen_files.dart';
 
 void main() {
+  final version = '1.0.0';
+
   final packages = GenPackages();
   final genFiles = GenFiles();
 
@@ -73,5 +75,5 @@ void main() {
   // INSTALLED PACKAGES
   packages.installPackages();
 
-  print('\nFlutter structure generated successfully!');
+  print('\nFlutter structure generated successfully! version: $version');
 }
