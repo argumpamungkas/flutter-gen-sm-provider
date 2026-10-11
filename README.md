@@ -193,7 +193,7 @@ After publishing changes to GitHub, update the globally activated version:
 
 ```bash
 dart pub global deactivate flutter_gen_sm_provider
-dart pub global activate --source git https://github.com/USERNAME/flutter-gen-sm-provider.git
+dart pub global activate --source git https://github.com/argumpamungkas/flutter-gen-sm-provider.git
 ```
 
 ## License
